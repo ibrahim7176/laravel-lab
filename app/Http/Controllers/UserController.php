@@ -40,8 +40,11 @@ class UserController extends Controller
     {
         $users = json_decode(\Illuminate\Support\Facades\File::get(storage_path('users.json')),
         true);
-        $user = $users[$id-1];
-        return view('users.store')->with(['users'=>$users]);
+        $user = (object)  ['name' => $request->input('name') , 'email' =>$request->input('email')];
+        array_push($users,$user);
+        $users =json_encode(\Illuminate\Support\Facades\File::get(storage_path('users.json')),
+        true);
+        return print_r($users);
     }
 
     /**
@@ -93,7 +96,7 @@ class UserController extends Controller
     {
         $users = json_decode(\Illuminate\Support\Facades\File::get(storage_path('users.json')),
         true);
-        $user = $users[$id]['name'];
+        $user = $users['name'];
         return "user $user deleted" ;
     }
 
