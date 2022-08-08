@@ -17,27 +17,20 @@
               <li>
                 <form action="<?php echo e(route('users.index')); ?>" method="GET">
                     
-                    <button type="submit" class="dropdown-item <?php echo e(Route::currentRouteName() == 'users.index' ? 'active': '' ); ?> " clbuttonss="dropdown-item">list</a>
+                    <button type="submit" class="dropdown-item <?php echo e(Route::currentRouteName() == "users.index" ? 'active': "" ); ?> " clbuttonss="dropdown-item">list</a>
                 </form>
                 </li>
-                <li>
-                  <form action="<?php echo e(route('posts.index')); ?>" method="GET">
-                      
-                      <button type="submit" class="dropdown-item <?php echo e(Route::currentRouteName() == 'posts.index' ? 'active': '' ); ?> " clbuttonss="dropdown-item">posts</a>
-                  </form>
-                  </li>
               <li><hr class="dropdown-divider"></li>
                 <li>
                 
                 
-                    <a type="submit" href="<?php echo e(route('users.create')); ?>" class="dropdown-item <?php echo e(Route::currentRouteName() == 'users.create' ? 'active': '' ); ?>" href=>New User</a>
+                    <a type="submit" href="<?php echo e(route('users.create')); ?>" class="dropdown-item <?php echo e(Route::currentRouteName() == "users.create" ? 'active': "" ); ?>" href=>New User</a>
                 
                 </li>
-                
               </ul>
           </li>
           
         </ul>
       </div>
     </div>
-  </nav><?php /**PATH C:\xampp\htdocs\labs\resources\views/includes/navbar.blade.php ENDPATH**/ ?>
+  </nav><?php /**PATH C:\xampp\htdocs\laravelIti\laravel-intro\resources\views/includes/navbar.blade.php ENDPATH**/ ?>

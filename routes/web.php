@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\postController;
 use Illuminate\Support\Facades\Route;
-//use userController
 use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 */
 
 
+//
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -29,7 +30,15 @@ Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update
 
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
-Route::fallback(function ()
-{
-    return "<h1>Erorr</h1>";
+
+Route::get('/posts', [postController::class, 'index'])->name('posts.index');
+Route::get('/posts/create', [postController::class, 'create'])->name('posts.create');
+Route::post('/posts', [postController::class, 'store'])->name('posts.store');
+Route::get('/posts/{id}', [postController::class, 'show'])->name('posts.show');
+Route::get('/posts/{id}/edit', [postController::class, 'edit'])->name('posts.edit');
+Route::put('/posts/{id}', [postController::class, 'update'])->name('posts.update');
+Route::delete('/posts/{id}', [postController::class, 'destroy'])->name('posts.destroy');
+
+Route::fallback(function () {
+    return '<h1>Something went wrong pleas try again</h1>';
 });

@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>display</h1>
-    <p>name : <?php echo e($users['name']); ?></p>
-    <p>email: <?php echo e($users['email']); ?></p>
-</body>
-</html><?php /**PATH C:\xampp\htdocs\labs\resources\views/users/show.blade.php ENDPATH**/ ?>
+
+<?php $__env->startSection('title','showUser'); ?>
+    
+<?php $__env->startSection('content'); ?>
+    <h1>user Name : <?php echo e($user['name']); ?></h1>
+    <h1>user Email : <?php echo e($user['email']); ?></h1>    
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\labs\resources\views/users/show.blade.php ENDPATH**/ ?>

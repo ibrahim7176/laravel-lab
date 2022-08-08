@@ -1,104 +1,62 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
+
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class UserController extends Controller
 {
-    
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+
+    function index()
     {
-        $users = json_decode(\Illuminate\Support\Facades\File::get(storage_path('users.json')),
-        true);
-        return view('users.index')->with(['users'=>$users]);
+        $users = user::all();
+
+        return view('users.index')->with(['users' => $users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    function create()
     {
-        return view('users.create') ;
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+        return view('users.create');
+    }
+    function show($id)
     {
-        $users = json_decode(\Illuminate\Support\Facades\File::get(storage_path('users.json')),
-        true);
-        $user = (object)  ['name' => $request->input('name') , 'email' =>$request->input('email')];
-        array_push($users,$user);
-        $users =json_encode(\Illuminate\Support\Facades\File::get(storage_path('users.json')),
-        true);
-        return print_r($users);
+        $user = user::find($id);
+        return view('users.show')->with(['user' => $user]);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    function store(Request $request)
     {
-        $users = json_decode(\Illuminate\Support\Facades\File::get(storage_path('users.json')),
-        true);
-        return view('users.show')->with(['users'=>$users]);;
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+        $user =  user::create(
+            ['name' => $request->input('name'), 'email' => $request->input('email'), 'password' => $request->input('password')]
+        );
+
+
+
+        return redirect()->route('users.index')->with(['users' => $user]);
+    }
+    function edit($id)
     {
-         $users = json_decode(\Illuminate\Support\Facades\File::get(storage_path('users.json')),
-        true);
-        $user = $users[$id-1];
-        return view('users.edite')->with(['user'=>$user]);
+        $user = User::find($id);
+        return view('users.edit')->with(['user' => $user]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    function update(Request $request, $id)
     {
-        return "usre update" ;
+        $user = User::find($id)->update(
+            ['name' => $request->input('name'), 'email' => $request->input('email'), 'password' => $request->input('password')]
+        );
+        return redirect()->route('users.index')->with(['users' => $user]);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    function destroy($id)
     {
-        $users = json_decode(\Illuminate\Support\Facades\File::get(storage_path('users.json')),
-        true);
-        $user = $users['name'];
-        return "user $user deleted" ;
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()->route('users.index')->with(['users' => $user]);
     }
-
-
 }
